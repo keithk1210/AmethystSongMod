@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "allseeingeye:item/all_seeing_boots"
-  }
-}
