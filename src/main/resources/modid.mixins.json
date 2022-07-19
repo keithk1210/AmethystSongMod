@@ -1,22 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.amethystsong.mixin",
+  "package": "net.fabricmc.allseeingeye.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ServerWorldMixin",
-    "WorldMixin"
   ],
   "client": [
-    "AmethystMixin",
-    "SoundManagerMixin",
-    "BlockMixin",
-    "ClientWorldMixin"
-  ],
-  "server": [
-
-
-
+    "KeyboardMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,8 +3,8 @@
   "id": "modid",
   "version": "${version}",
 
-  "name": "AmethystSong",
-  "description": "Allows you to make music with amethyst!",
+  "name": "AllSeeingEye",
+  "description": "A mod that moves the player towards a block",
   "authors": [
     "Me!"
   ],
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.amethystsong.AmethystSong"
+      "net.fabricmc.allseeingeye.AllSeeingEye"
     ]
   },
   "mixins": [
