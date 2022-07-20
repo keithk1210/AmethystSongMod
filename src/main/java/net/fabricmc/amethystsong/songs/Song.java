@@ -1,6 +1,8 @@
 package net.fabricmc.amethystsong.songs;
 
+import net.fabricmc.amethystsong.AmethystSong;
 import net.fabricmc.amethystsong.Utils.Note;
+import net.fabricmc.amethystsong.gui.SongPageManager;
 
 import java.util.ArrayList;
 
@@ -8,6 +10,8 @@ public class Song {
 
     private int currentNoteIndex = 0;
     private ArrayList<Note> notes;
+    private int numSong;
+    private SongPageManager manager;
 
     public Song() {
         notes = new ArrayList<>();
@@ -26,6 +30,9 @@ public class Song {
     }
 
     public ArrayList<Note> getNotes() {
+        for (Note note: notes) {
+            AmethystSong.LOGGER.info("Note: " + note.getName());
+        }
         return notes;
     }
 
@@ -51,5 +58,22 @@ public class Song {
 
     public void addNote(Note note) {
         notes.add(note);
+        AmethystSong.LOGGER.info("Was " + note.getName() + " added to notes? " + notes.contains(note));
+    }
+
+    public void setNumSong(int numSong) {
+        this.numSong = numSong;
+    }
+
+    public int getNumSong() {
+        return numSong;
+    }
+
+    public SongPageManager getManager() {
+        return manager;
+    }
+
+    public void setManager(SongPageManager manager) {
+        this.manager = manager;
     }
 }

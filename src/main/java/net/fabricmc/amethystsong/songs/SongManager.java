@@ -14,8 +14,8 @@ public class SongManager {
     }
 
     public static Song getSong(int num) {
-        if (num < songs.size()) {
-            return songs.get(num);
+        if (num -1 < songs.size()) {
+            return songs.get(num-1);
         }
         return null;
 
