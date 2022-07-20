@@ -11,7 +11,8 @@
     "AmethystMixin",
     "SoundManagerMixin",
     "BlockMixin",
-    "ClientWorldMixin"
+    "ClientWorldMixin",
+    "ClientPlayerEntityMixin"
   ],
   "server": [
 

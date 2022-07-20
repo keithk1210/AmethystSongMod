@@ -6,6 +6,7 @@ import net.fabricmc.amethystsong.Utils.Note;
 import net.fabricmc.amethystsong.Utils.Utils;
 import net.fabricmc.amethystsong.songs.CMajorScale;
 import net.fabricmc.amethystsong.songs.SongManager;
+import net.minecraft.client.sound.Sound;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -26,13 +27,17 @@ public class ClientWorldMixin {
         if (args.get(3) instanceof SoundEvent) {
             se = args.get(3);
             if (se.getId().compareTo(SoundEvents.BLOCK_AMETHYST_BLOCK_PLACE.getId()) == 0) {
-                Note currentNote = SongManager.getActiveSong().getNote();
-                if (currentNote != null) {
-                    AmethystSong.LOGGER.info(currentNote.toString());
-                    args.set(8,1L); //set the seed to be the same each time
-                    args.set(5,1.0F); //set to max volume
-                    args.set(6, currentNote.getPitch());
+                if (SongManager.getActiveSong() != null) {
+                    Note currentNote = SongManager.getActiveSong().getNote();
+                    if (currentNote != null) {
+                        AmethystSong.LOGGER.info(currentNote.toString());
+                        args.set(8, 1L); //set the seed to be the same each time
+                        args.set(5, 1.0F); //set to max volume
+                        args.set(6, currentNote.getPitch());
+                    }
                 }
+            } else if (se.getId().compareTo(SoundEvents.BLOCK_AMETHYST_BLOCK_STEP.getId()) == 0) {
+                AmethystSong.LOGGER.info("step event");
             }
         }
     }

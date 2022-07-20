@@ -17,6 +17,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.ArgumentTypes;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,16 +37,18 @@ public class AmethystSong implements ModInitializer {
 		KeybindingRegistrationHelper.register();
 		ClientTickEvents.END_CLIENT_TICK.register(this::clientTickEvent);
 		CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, environment) -> {
-			dispatcher.register(CommandManager.literal("song")
-					.then(CommandManager.argument("songNumber", IntegerArgumentType.integer(0, SongManager.getNumSongs() + 177))
+			dispatcher.register(CommandManager.literal(MOD_ID)
+					.then(CommandManager.argument("songNumber", IntegerArgumentType.integer(0))
 						.then(CommandManager.literal("add")
 							.then(CommandManager.argument("noteName",StringArgumentType.string())
 							.executes(context -> {
 								SongManager.getSong(IntegerArgumentType.getInteger(context,"songNumber")).addNote(Note.valueOf(StringArgumentType.getString(context,"noteName").toUpperCase()));
+								context.getSource().getPlayer().sendMessage(Text.literal(StringArgumentType.getString(context,"noteName").toUpperCase() + " added to song #" + IntegerArgumentType.getInteger(context,"songNumber") + "!"));
 								return 1;
-									}
+							}
 							)))));
-			dispatcher.register(CommandManager.literal("song")
+			//add new song command
+			dispatcher.register(CommandManager.literal(MOD_ID)
 					.then(CommandManager.literal("add").executes(context -> {
 						Song newSong = new Song();
 						SongManager.addSong(newSong);
@@ -53,17 +56,37 @@ public class AmethystSong implements ModInitializer {
 						newSong.setNumSong(numSongs);
 						SongPageManager manager = new SongPageManager(newSong);
 						newSong.setManager(manager);
+						context.getSource().getPlayer().sendMessage(Text.literal("Song " + newSong.getNumSong() + " added!"));
 						return 1;
 					})));
+			dispatcher.register(CommandManager.literal(MOD_ID)
+					.then(CommandManager.literal("set")
+							.then(CommandManager.argument("noteNumber",IntegerArgumentType.integer())
+									.then(CommandManager.argument("newNoteName",StringArgumentType.string()).executes(context -> {
+										if (SongManager.getActiveSong() != null) {
+											int noteNum =  IntegerArgumentType.getInteger(context,"noteNumber");
+											Note newNote = Note.valueOf(StringArgumentType.getString(context,"newNoteName").toUpperCase());
+											SongManager.getActiveSong().setNote(noteNum, newNote);
+											context.getSource().getPlayer().sendMessage(Text.literal("Note " + noteNum + "/" + SongManager.getActiveSong().getNumNotes() + " set to " + newNote.getName() + "!"));
+											return 1;
+										} else {
+											context.getSource().getPlayer().sendMessage(Text.literal("No active song").formatted(Formatting.RED));
+											return 1;
+										}
+
+									})))));
 		}));
 		LOGGER.info("AmethystSong initialized");
 	}
 
 	private void clientTickEvent(MinecraftClient mc) {
-		if (KeybindingRegistrationHelper.openMenuKey.wasPressed()) {
+			if (KeybindingRegistrationHelper.openMenuKey.wasPressed()) {
+				if (SongManager.getNumSongs() <= 0) {
+					mc.player.sendMessage(Text.literal("Could not open song editor: No songs exist yet. Start by typing the /" + MOD_ID + " add command!"));
+				} else {
+					mc.setScreen(new EditorScreen(new EditorGUI()));
+				}
 
-			mc.setScreen(new EditorScreen(new EditorGUI()));
-		}
-
+			}
 	}
 }

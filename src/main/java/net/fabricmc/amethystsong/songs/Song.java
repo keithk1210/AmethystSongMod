@@ -30,10 +30,15 @@ public class Song {
     }
 
     public ArrayList<Note> getNotes() {
-        for (Note note: notes) {
-            AmethystSong.LOGGER.info("Note: " + note.getName());
-        }
         return notes;
+    }
+
+    public void setNote(int noteNumber,Note note) {
+        try {
+            this.notes.set(noteNumber-1,note);
+        }catch (IndexOutOfBoundsException e) {
+            AmethystSong.LOGGER.info(e.toString());
+        }
     }
 
     public Note getNote() {
