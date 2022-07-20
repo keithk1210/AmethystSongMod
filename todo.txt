@@ -1,0 +1,5 @@
+GUI is being weird
+
+Sharps and flats not working
+
+Add it so that step events are also influecned
