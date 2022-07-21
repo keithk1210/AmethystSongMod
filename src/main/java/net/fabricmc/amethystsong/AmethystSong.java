@@ -37,16 +37,21 @@ public class AmethystSong implements ModInitializer {
 		KeybindingRegistrationHelper.register();
 		ClientTickEvents.END_CLIENT_TICK.register(this::clientTickEvent);
 		CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, environment) -> {
+			//add note command
 			dispatcher.register(CommandManager.literal(MOD_ID)
-					.then(CommandManager.argument("songNumber", IntegerArgumentType.integer(0))
-						.then(CommandManager.literal("add")
-							.then(CommandManager.argument("noteName",StringArgumentType.string())
-							.executes(context -> {
-								SongManager.getSong(IntegerArgumentType.getInteger(context,"songNumber")).addNote(Note.valueOf(StringArgumentType.getString(context,"noteName").toUpperCase()));
-								context.getSource().getPlayer().sendMessage(Text.literal(StringArgumentType.getString(context,"noteName").toUpperCase() + " added to song #" + IntegerArgumentType.getInteger(context,"songNumber") + "!"));
-								return 1;
+					.then(CommandManager.literal("get")
+						.then(CommandManager.argument("songNumber", IntegerArgumentType.integer(0))
+							.then(CommandManager.literal("add")
+								.then(CommandManager.argument("noteName",StringArgumentType.string())
+								.executes(context -> {
+									AmethystSong.LOGGER.info("input was: " + StringArgumentType.getString(context,"noteName").toUpperCase());
+									Note note = Note.valueOf(StringArgumentType.getString(context,"noteName").toUpperCase());
+									AmethystSong.LOGGER.info("valueOf: " + note.getName());
+									SongManager.getSong(IntegerArgumentType.getInteger(context,"songNumber")).addNote(note);
+									context.getSource().getPlayer().sendMessage(Text.literal(StringArgumentType.getString(context,"noteName").toUpperCase() + " added to song #" + IntegerArgumentType.getInteger(context,"songNumber") + "!"));
+									return 1;
 							}
-							)))));
+							))))));
 			//add new song command
 			dispatcher.register(CommandManager.literal(MOD_ID)
 					.then(CommandManager.literal("add").executes(context -> {
@@ -60,21 +65,34 @@ public class AmethystSong implements ModInitializer {
 						return 1;
 					})));
 			dispatcher.register(CommandManager.literal(MOD_ID)
-					.then(CommandManager.literal("set")
-							.then(CommandManager.argument("noteNumber",IntegerArgumentType.integer())
-									.then(CommandManager.argument("newNoteName",StringArgumentType.string()).executes(context -> {
-										if (SongManager.getActiveSong() != null) {
-											int noteNum =  IntegerArgumentType.getInteger(context,"noteNumber");
-											Note newNote = Note.valueOf(StringArgumentType.getString(context,"newNoteName").toUpperCase());
-											SongManager.getActiveSong().setNote(noteNum, newNote);
-											context.getSource().getPlayer().sendMessage(Text.literal("Note " + noteNum + "/" + SongManager.getActiveSong().getNumNotes() + " set to " + newNote.getName() + "!"));
-											return 1;
-										} else {
-											context.getSource().getPlayer().sendMessage(Text.literal("No active song").formatted(Formatting.RED));
-											return 1;
-										}
+					.then(CommandManager.literal("get")
+							.then(CommandManager.argument("songNumber",IntegerArgumentType.integer(0))
+								.then(CommandManager.literal("set")
+										.then(CommandManager.argument("noteNumber",IntegerArgumentType.integer())
+												.then(CommandManager.argument("newNoteName",StringArgumentType.string()).executes(context -> {
+													if (SongManager.getSong(IntegerArgumentType.getInteger(context,"songNumber")) != null) {
+														int noteNum =  IntegerArgumentType.getInteger(context,"noteNumber");
+														Note newNote = Note.valueOf(StringArgumentType.getString(context,"newNoteName").toUpperCase());
+														SongManager.getActiveSong().setNote(noteNum, newNote);
+														context.getSource().getPlayer().sendMessage(Text.literal("Note " + noteNum + "/" + SongManager.getActiveSong().getNumNotes() + " set to " + newNote.getName() + "!"));
+														return 1;
+													} else {
+														context.getSource().getPlayer().sendMessage(Text.literal("Song does not exist").formatted(Formatting.RED));
+														return 1;
+													}
 
-									})))));
+												})))))));
+			//clear command
+			dispatcher.register(CommandManager.literal(MOD_ID)
+					.then(CommandManager.literal("get")
+							.then(CommandManager.argument("songNumber", IntegerArgumentType.integer(0))
+									.then(CommandManager.literal("clear")
+											.executes(context -> {
+												int songNum = IntegerArgumentType.getInteger(context,"songNumber");
+												SongManager.getSong(songNum).getNotes().clear();
+												context.getSource().getPlayer().sendMessage(Text.literal("Song #" + songNum + " cleared!"));
+												return 1;
+											})))));
 		}));
 		LOGGER.info("AmethystSong initialized");
 	}

@@ -7,6 +7,7 @@ public class CMajorScale {
     private static int currentNote = 0;
 
     public static final Note[] notes = new Note[] {
+            /*
             Note.C,
             Note.D,
             Note.E,
@@ -14,6 +15,7 @@ public class CMajorScale {
             Note.G,
             Note.A,
             Note.B
+             */
     };
 
     private static int getCurrentNote() {

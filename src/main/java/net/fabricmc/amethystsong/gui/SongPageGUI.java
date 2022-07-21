@@ -47,12 +47,12 @@ public class SongPageGUI extends LightweightGuiDescription {
         if (song != null) {
             for (int currentColumn = 0; currentColumn < NOTES_PER_COLUMN; currentColumn++) {
                 for (int currentRow = 0; currentRow < NOTES_PER_ROW; currentRow++) {
-                    int currentNote = currentColumn * NOTES_PER_COLUMN + currentRow;
+                    int currentNote = currentColumn * NOTES_PER_ROW+ currentRow;
                     try {
                         if (currentNote < this.notes.size()) {
                             WButton noteButton = new WButton(Text.literal(this.notes.get(currentNote).getName() + " (" + (currentNote + 1) + "/" + this.manager.getSong().getNumNotes() + ")"));
                             root.add(noteButton, (currentRow * 4) + 1, (currentColumn * 2) + 1, 3, 1);
-                            AmethystSong.LOGGER.info(currentRow + ", " + currentColumn);
+                            AmethystSong.LOGGER.info("currentNote: " + currentNote + " " + currentRow + ", " + currentColumn);
                         }
                     } catch (IndexOutOfBoundsException e) {
                         AmethystSong.LOGGER.info(e.toString());

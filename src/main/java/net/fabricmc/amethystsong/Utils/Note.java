@@ -6,41 +6,40 @@ import java.util.List;
 import java.util.Random;
 
 public enum Note {
-
-
-    /*
-
-    F_SHARP((float)Math.pow(2,-11/12.0),"F#"),
-    G_FLAT((float)Math.pow(2,-11/12.0),"Gb"),
-    G((float)Math.pow(2, -10/12.0),"G"),
-    G_SHARP((float)Math.pow(2, -9/12.0),"G#"),
-    A_FLAT((float)Math.pow(2,-9/12.0),"Ab"),
-    A((float)Math.pow(2, -8/12.0),"A"),
-    B_FLAT((float)Math.pow(2,-7/12.0),"Bb"),
-    C((float)Math.pow(2,-6/12.0),"C"),
-    C_SHARP((float)Math.pow(2, -5/12.0),"C#"),
-    D((float)Math.pow(2, -4/12.0),"D"),
-    D_SHARP((float)Math.pow(2, -3/12.0),"D#"),
-    E((float)Math.pow(2, -2/12.0),"E"),
-    F((float)Math.pow(2,-1/12.0),"F");
-    */
-    C(523.3f/523.3f,"C"),
-    C_SHARP(554.37f/523.3f,"CSHARP"),
-    D_FLAT(554.37f/523.3f,"DFLAT"),
-    D(587.3f/523.3f,"D"),
-    D_SHARP(622.25f/523.3f,"DSHARP"),
-    E_FLAT(622.25f/523.3f,"EFLAT"),
-    E(659.3f/523.3f,"E"),
-    F(698.5f/523.3f,"F"),
-    F_SHARP(739.99f/523.3f,"FSHARP"),
-    G_FLAT(739.99f/523.3f,"GFLAT"),
-    G(784.0f/523.3f,"G"),
-    G_SHARP(830.61f/523.3f,"GSHARP"),
-    A_FLAT(830.61f/523.3f,"AFLAT"),
-    A(880.0f/523.3f,"A"),
-    A_SHARP(932.33f/523.3f,"ASHARP"),
-    B_FLAT(932.33f/523.3f,"BFLAT"),
-    B(987.8f/523.3f,"B");
+    C0(.5f,"C0"),
+    CSHARP0(277.183f/523.3f,"C#0"),
+    DFLAT0(277.183f/523.3f,"Db0"),
+    D0(293.665f/523.f,"D0"),
+    DSHARP0(311.127f/523.3f,"D#0"),
+    EFLAT0(311.127f/523.3f,"Eb0"),
+    E0(329.628f/523.3f,"E0"),
+    F0(349.228f/523.3f,"F0"),
+    FSHARP0(369.994f/523.3f,"F#0"),
+    G0(391.995f/523.3f,"G0"),
+    GSHARP0(415.305f/523.3f,"G#0"),
+    AFLAT0(415.305f/523.3f,"Ab0"),
+    A0(440.0f/523.3f,"A"),
+    ASHARP0(466.164f/523.3f,"A#0"),
+    BFLAT0(466.164f/523.3f,"Bb0"),
+    B0(493.883f/523.3f,"B0"),
+    C1(523.3f/523.3f,"C1"),
+    CSHARP1(554.37f/523.3f,"C#1"),
+    DFLAT1(554.37f/523.3f,"Db1"),
+    D1(587.3f/523.3f,"D1"),
+    DSHARP1(622.25f/523.3f,"D#1"),
+    EFLAT1(622.25f/523.3f,"Eb1"),
+    E1(659.3f/523.3f,"E1"),
+    F1(698.5f/523.3f,"F1"),
+    FSHARP1(739.99f/523.3f,"F#1"),
+    GFLAT1(739.99f/523.3f,"Gb1"),
+    G1(784.0f/523.3f,"G"),
+    GSHARP1(830.61f/523.3f,"G#1"),
+    AFLAT1(830.61f/523.3f,"Ab1"),
+    A1(880.0f/523.3f,"A1"),
+    ASHARP1(932.33f/523.3f,"A#1"),
+    BFLAT1(932.33f/523.3f,"Bb1"),
+    B1(987.8f/523.3f,"B1"),
+    C2(2.0f,"C2");
 
 
 

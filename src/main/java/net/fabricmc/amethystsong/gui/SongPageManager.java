@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SongPageManager {
 
     private Song song;
-    public static int NOTES_PER_PAGE = 12;
+    public final static int NOTES_PER_PAGE = 12;
     private ArrayList<SongPageGUI> pages;
 
     public SongPageManager(Song song){
