@@ -9,4 +9,5 @@ Additionally, YouTuber Rishbob has made a Bukkit plugin version of this same ide
 My version is different in that it:
 
   -It can be used in singleplayer
+  
   -I created a python application (https://github.com/spike9743/AmethystSongMusicXMLConverter) that allows you to convert sheet music to a command that can be used with my mod. The tutorial is here. https://github.com/spike9743/AmethystSongMod/wiki/The-%22Faster%22-way
